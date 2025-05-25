@@ -73,7 +73,7 @@
       cursor: pointer;
       font-weight: bold;
     }
-    #cart {
+    .cart-display {
       margin-top: 1rem;
       text-align: left;
     }
@@ -107,7 +107,7 @@
     <div class="item">Cheddar Popcorn - $0.99 <button onclick="addToCart('Cheddar Popcorn', 0.99)">Add</button></div>
     <div class="item">Lays - $0.99 <button onclick="addToCart('Lays', 0.99)">Add</button></div>
     <div class="item">Barbecue Lays - $1.50 <button onclick="addToCart('Barbecue Lays', 1.50)">Add</button></div>
-    <div id="cart"></div>
+    <div id="cart-food" class="cart-display"></div>
     <div class="cart-controls"><button onclick="checkout()">Checkout</button></div>
   </div>
 
@@ -126,7 +126,7 @@
     <h3>Fall</h3>
     <div class="item">Apple Cider - $1.50 <button onclick="addToCart('Apple Cider', 1.50)">Add</button></div>
     <div class="item">Peppermint Matcha - $1.99 <button onclick="addToCart('Peppermint Matcha', 1.99)">Add</button></div>
-    <div id="cart"></div>
+    <div id="cart-drinks" class="cart-display"></div>
     <div class="cart-controls"><button onclick="checkout()">Checkout</button></div>
   </div>
 
@@ -142,7 +142,7 @@
     <div><input type="checkbox">Dragon Fruit</div>
     <div><input type="checkbox">Lemon</div>
     <div><input type="checkbox">Ice (+$0.15)</div>
-    <div id="cart"></div>
+    <div id="cart-custom" class="cart-display"></div>
     <div class="cart-controls"><button onclick="checkout()">Checkout</button></div>
   </div>
 
@@ -157,6 +157,7 @@
     function showPage(pageId) {
       document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
       document.getElementById(pageId).classList.remove('hidden');
+      renderCart();
     }
 
     function addToCart(name, price) {
@@ -165,9 +166,13 @@
     }
 
     function renderCart() {
-      const cartDivs = document.querySelectorAll('#cart');
-      cartDivs.forEach(cartDiv => {
-        cartDiv.innerHTML = cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join('<br>');
+      ['cart-food', 'cart-drinks', 'cart-custom'].forEach(id => {
+        const cartDiv = document.getElementById(id);
+        if (cartDiv && !cartDiv.closest('.hidden')) {
+          cartDiv.innerHTML = cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join('<br>');
+        } else if (cartDiv) {
+          cartDiv.innerHTML = '';
+        }
       });
     }
 
