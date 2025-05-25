@@ -97,6 +97,60 @@
     <h2>Welcome to SnackStop</h2>
   </div>
 
+  <div id="food" class="container hidden">
+    <h2>Food Menu</h2>
+    <div class="item">Rice Krispies - $0.99 <button onclick="addToCart('Rice Krispies', 0.99)">Add</button></div>
+    <div class="item">Chocolate Chip Cookies - $0.99 <button onclick="addToCart('Chocolate Chip Cookies', 0.99)">Add</button></div>
+    <div class="item">Goldfish - $1.50 <button onclick="addToCart('Goldfish', 1.50)">Add</button></div>
+    <div class="item">Doritos Red - $1.50 <button onclick="addToCart('Doritos Red', 1.50)">Add</button></div>
+    <div class="item">Doritos Blue - $1.50 <button onclick="addToCart('Doritos Blue', 1.50)">Add</button></div>
+    <div class="item">Cheddar Popcorn - $0.99 <button onclick="addToCart('Cheddar Popcorn', 0.99)">Add</button></div>
+    <div class="item">Lays - $0.99 <button onclick="addToCart('Lays', 0.99)">Add</button></div>
+    <div class="item">Barbecue Lays - $1.50 <button onclick="addToCart('Barbecue Lays', 1.50)">Add</button></div>
+    <div id="cart"></div>
+    <div class="cart-controls"><button onclick="checkout()">Checkout</button></div>
+  </div>
+
+  <div id="drinks" class="container hidden">
+    <h2>Drinks Menu</h2>
+    <h3>Summer</h3>
+    <div class="item">Lemonade - $1.99 <button onclick="addToCart('Lemonade', 1.99)">Add</button></div>
+    <div class="item">Pink Lemonade - $1.99 <button onclick="addToCart('Pink Lemonade', 1.99)">Add</button></div>
+    <div class="item">Blue Razz Lemonade - $1.99 <button onclick="addToCart('Blue Razz Lemonade', 1.99)">Add</button></div>
+    <div class="item">Iced Tea - $1.50 <button onclick="addToCart('Iced Tea', 1.50)">Add</button></div>
+    <h3>Winter</h3>
+    <div class="item">Hot Chocolate - $2.50 <button onclick="addToCart('Hot Chocolate', 2.50)">Add</button></div>
+    <div class="item">Peppermint HC - $2.50 <button onclick="addToCart('Peppermint HC', 2.50)">Add</button></div>
+    <div class="item">Sprite Cranberry - $1.99 <button onclick="addToCart('Sprite Cranberry', 1.99)">Add</button></div>
+    <div class="item">Jingle Juice Special - $2.99 <button onclick="addToCart('Jingle Juice Special', 2.99)">Add</button></div>
+    <h3>Fall</h3>
+    <div class="item">Apple Cider - $1.50 <button onclick="addToCart('Apple Cider', 1.50)">Add</button></div>
+    <div class="item">Peppermint Matcha - $1.99 <button onclick="addToCart('Peppermint Matcha', 1.99)">Add</button></div>
+    <div id="cart"></div>
+    <div class="cart-controls"><button onclick="checkout()">Checkout</button></div>
+  </div>
+
+  <div id="custom" class="container hidden">
+    <h2>Custom Orders</h2>
+    <div class="item">Custom Drink - $1.99 <button onclick="addToCart('Custom Drink', 1.99)">Add</button></div>
+    <div class="item">Smoothie - $1.50 <button onclick="addToCart('Smoothie', 1.50)">Add</button></div>
+    <div class="item">Smoothie Bowl (Currently Unavailable)</div>
+    <h3>Fruit Choices:</h3>
+    <div><input type="checkbox">Strawberry</div>
+    <div><input type="checkbox">Blueberry</div>
+    <div><input type="checkbox">Raspberry</div>
+    <div><input type="checkbox">Dragon Fruit</div>
+    <div><input type="checkbox">Lemon</div>
+    <div><input type="checkbox">Ice (+$0.15)</div>
+    <div id="cart"></div>
+    <div class="cart-controls"><button onclick="checkout()">Checkout</button></div>
+  </div>
+
+  <div id="controlPanel" class="container hidden">
+    <h2>Control Panel</h2>
+    <div id="orderList"></div>
+  </div>
+
   <script>
     let cart = [];
 
@@ -111,8 +165,10 @@
     }
 
     function renderCart() {
-      const cartDiv = document.getElementById('cart');
-      cartDiv.innerHTML = cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join('<br>');
+      const cartDivs = document.querySelectorAll('#cart');
+      cartDivs.forEach(cartDiv => {
+        cartDiv.innerHTML = cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join('<br>');
+      });
     }
 
     function checkout() {
